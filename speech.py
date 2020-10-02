@@ -18,11 +18,13 @@ def  record_audio(ask= False):
         return voice_data
 
 def respond(voice_data):
-    if 'what is your name' in voice_data:
-        print('my name is Jarvis')
+    if 'what is your name'or"tell me your name" in voice_data:
+        print('i am a speech recognization system')
+        
     if 'what time is it' in voice_data:
         print(time.ctime())
-    if 'what' in voice_data:
+        
+    if 'search on Google' in voice_data:
         search=record_audio('What do you want to search for?')
         url='http://google.com/search?q='+ search
         webbrowser.get().open(url)
