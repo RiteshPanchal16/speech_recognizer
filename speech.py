@@ -1,5 +1,7 @@
 import speech_recognition as sr
 import webbrowser
+import playsound
+from gtts import gTTS
 import time
 r = sr.Recognizer()
 def  record_audio(ask= False):
@@ -18,8 +20,12 @@ def  record_audio(ask= False):
         return voice_data
 
 def respond(voice_data):
-    if 'what is your name'or"tell me your name" in voice_data:
-        print('i am a speech recognization system')
+    if 'what is your name' in voice_data:
+        text='i am a speech recognization system'
+        tts=gTTS(text=text,lang='en')
+        filename="voice.mp3"
+        tts.save(filename)
+        playsound.playsound(filename)
         
     if 'what time is it' in voice_data:
         print(time.ctime())
@@ -34,8 +40,13 @@ def respond(voice_data):
         url='https://www.google.co.in/maps/place/'+search
         webbrowser.get().open(url)
         print("location" + search)
+    if 'open' in voice_data:
+        v=voice_data.split()
+        url="https://www."+v[1]+".com"
+        webbrowser.get().open(url)
 
+if __name__ == "__main__":
         
-print('How can i help you?')
-voice_data=record_audio()
-respond(voice_data)
+    print('How can i help you?')
+    voice_data=record_audio()
+    respond(voice_data)
